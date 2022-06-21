@@ -1,0 +1,173 @@
+{% extends 'ritzy/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--Body Content-->
+    <div id="page-content">
+    	<!--Collection Banner-->
+    	<div class="collection-header">
+			<div class="collection-hero">
+        		<div class="collection-hero__image"><img class="blur-up lazyload" data-src="{%static 'ritzy/assets/images/cat-women.jpg' %}" src="{%static 'ritzy/assets/images/cat-women.jpg' %}" alt="Women" title="Women" /></div>
+        		<div class="collection-hero__title-wrapper"><h1 class="collection-hero__title page-width">{{ products.count }} product{{ products.count|pluralize }} in category: {{ category }}</h1></div>
+      		</div>
+		</div>
+        <!--End Collection Banner-->
+        
+        <div class="container">
+        	<div class="row">
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                	<div class="productList">
+                        <div class="grid-products grid--view-items">
+
+                            <div class="row">
+                                {% if products %}
+                                    {% for product in products %}
+                                        <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
+                                            <!-- start product image -->
+                                            <div class="product-image">
+                                                <!-- start product image -->
+                                                <a href="{{ product.get_absolute_url }}">
+                                                    <!-- image -->
+                                                    <img class="primary blur-up lazyload" data-src="{% if product.image %} {{ product.image.url }} {% endif %}" src="{% if product.image %} {{ product.image.url }} {% endif %}" alt="image" title="product" />
+                                                    <!-- End image -->
+                                                    <!-- Hover image -->
+                                                    <img class="hover blur-up lazyload" data-src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" alt="image" title="product" />
+                                                    <!-- End hover image -->
+                                                    <!-- product label -->
+                                                    <div class="product-labels"><span class="lbl on-sale">Sale</span></div>
+                                                    <!-- End product label -->
+                                                </a>
+                                                <!-- end product image -->
+
+                                                <!-- Start product button -->
+                                                <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
+                                                    <button class="btn btn-addto-cart" type="button">Select Options</button>
+                                                </form>
+                                                <div class="button-set">
+                                                    <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
+                                                                <i class="icon anm anm-search-plus-r"></i>
+                                                            </a>
+                                                    <div class="wishlist-btn">
+                                                        <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
+                                                            <i class="icon anm anm-heart-l"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="compare-btn">
+                                                        <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
+                                                            <i class="icon anm anm-random-r"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- end product button -->
+                                            </div>
+                                            <!-- end product image -->
+
+                                            <!--start product details -->
+                                            <div class="product-details text-center">
+                                                <!-- product name -->
+                                                <div class="product-name">
+                                                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                                </div>
+                                                <!-- End product name -->
+                                                <!-- product price -->
+                                                <div class="product-price">
+                                                    <span class="price">₦ {{ product.price }}</span>
+                                                </div>
+                                                <!-- End product price -->
+                                                
+                                                <div class="product-review">
+                                                    <i class="font-13 fa fa-star-o"></i>
+                                                    <i class="font-13 fa fa-star-o"></i>
+                                                    <i class="font-13 fa fa-star-o"></i>
+                                                    <i class="font-13 fa fa-star-o"></i>
+                                                    <i class="font-13 fa fa-star-o"></i>
+                                                </div>
+                                            </div>
+                                            <!-- End product details -->
+                                            <!-- Variant -->
+                                            <ul class="swatches color-style color-style1">
+                                                <li class="swatch rounded">
+                                                    <input type="checkbox" value="black">
+                                                    <label class="color" title="Black"><span class="black"></span></label>
+                                                </li>
+                                                <li class="swatch rounded">
+                                                    <input type="checkbox" value="white">
+                                                    <label class="color" title="White"><span class="white"></span></label>
+                                                </li>
+                                                <li class="swatch rounded">
+                                                    <input type="checkbox" value="red">
+                                                    <label class="color" title="Red"><span class="red"></span></label>
+                                                </li>
+                                                <li class="swatch rounded">
+                                                    <input type="checkbox" value="blue">
+                                                    <label class="color" title="Blue"><span class="blue"></span></label>
+                                                </li>
+                                            </ul>
+                                            <!-- End Variant -->
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <h2>Shop empty, check again later.</h2>
+                                {% endif %}
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Main Content-->
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+{% endblock content %}
+
+{% block js %}
+   <!-- Including Jquery -->
+    <!-- Including Jquery -->
+     <script src="{%static 'ritzy/assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/jquery.cookie.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/wow.min.js' %}"></script>
+     <!-- Including Javascript -->
+     <script src="{%static 'ritzy/assets/js/bootstrap.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/plugins.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/popper.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/lazysizes.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/main.js' %}"></script>
+     <!--For Newsletter Popup-->
+     <script>
+		jQuery(document).ready(function(){  
+		  jQuery('.closepopup').on('click', function () {
+			  jQuery('#popup-container').fadeOut();
+			  jQuery('#modalOverly').fadeOut();
+		  });
+		  
+		  var visits = jQuery.cookie('visits') || 0;
+		  visits++;
+		  jQuery.cookie('visits', visits, { expires: 1, path: '/' });
+		  console.debug(jQuery.cookie('visits')); 
+		  if ( jQuery.cookie('visits') > 1 ) {
+			jQuery('#modalOverly').hide();
+			jQuery('#popup-container').hide();
+		  } else {
+			  var pageHeight = jQuery(document).height();
+			  jQuery('<div id="modalOverly"></div>').insertBefore('body');
+			  jQuery('#modalOverly').css("height", pageHeight);
+			  jQuery('#popup-container').show();
+		  }
+		  if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
+		}); 
+		
+		jQuery(document).mouseup(function(e){
+		  var container = jQuery('#popup-container');
+		  if( !container.is(e.target)&& container.has(e.target).length === 0)
+		  {
+			container.fadeOut();
+			jQuery('#modalOverly').fadeIn(200);
+			jQuery('#modalOverly').hide();
+		  }
+		});
+	</script>
+{% endblock js %}

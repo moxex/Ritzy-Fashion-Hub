@@ -11,9 +11,9 @@ CATEGORY_CHOICES = (
 )
 
 LABEL_CHOICES = (
-    ('S', 'sale'),
-    ('N', 'new'),
-    ('P', 'promotion')
+    ('Sale', 'sale'),
+    ('New', 'new'),
+    ('Promotion', 'promotion')
 )
 
 
@@ -49,8 +49,9 @@ class Product(models.Model):
     name = models.CharField(max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
+    image_hover = models.ImageField(upload_to='products/%Y/%m/%d', blank=True)
     description = models.TextField(blank=True)
-    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=10)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

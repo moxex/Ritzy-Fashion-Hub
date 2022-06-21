@@ -1,0 +1,263 @@
+{% extends 'ritzy/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!--Body Content-->
+    <div id="page-content">
+    	<!--Page Title-->
+    	<div class="page section-header text-center mb-0">
+			<div class="page-title">
+        		<div class="wrapper"><h1 class="page-width">Welcome to our Blog</h1></div>
+      		</div>
+		</div>
+        <!--End Page Title-->
+	    <div class="bredcrumbWrap">
+            <div class="container breadcrumbs">
+                <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>Our Blog</span>
+            </div>
+        </div>
+        <div class="container">
+        	<div class="row">
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+                	<div class="custom-search">
+                        <form action="http://annimexweb.com/search" method="get" class="input-group search-header search" role="search" style="position: relative;">
+                            <input class="search-header__input search__input input-group__field" type="search" name="q" placeholder="Search" aria-label="Search" autocomplete="off">
+                            <span class="input-group__btn"><button class="btnSearch" type="submit"> <i class="icon anm anm-search-l"></i> </button></span>
+                        </form>
+                    </div>
+                    <div class="blog--list-view blog--grid-load-more">
+                        {% for post in posts %}
+                    	<div class="article"> 
+                            <!-- Article Image --> 
+                             <a class="article_featured-image" href="#"><img class="blur-up lazyload" data-src="{{ post.image.url }}" src="{{ post.image.url }}" alt="Blog Image"></a> 
+                            <h2 class="h3"><a href="{% url 'post:post_detail' post.pk post.slug %}">{{ post.title }}</a></h2>
+                            <ul class="publish-detail">                      
+                                <li><i class="anm anm-user-al" aria-hidden="true"></i> {{ post.author }}</li>
+                                <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{ post.date|date:'d-F-Y' }}</time></li>
+                                <li>
+                                    <ul class="inline-list">   
+                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="rte"> 
+                                <p>{{ post.body | slice:":150" }}... </p>
+                                 </div>
+                            <p><a href="{% url 'post:post_detail' post.pk post.slug %}" class="btn btn-secondary btn--small">Read more <i class="fa fa-caret-right" aria-hidden="true"></i></a></p>
+                        </div>
+                        {% endfor %}
+
+
+                        <div class="loadmore-post">	
+                            <a href="#;" class="btn loadMorepost">Load More</a>
+                        </div>
+                    </div>
+                </div>
+                <!--End Main Content-->
+                <!--Sidebar-->
+            	<div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar">
+                	<div class="sidebar_tags">
+                    	<div class="sidebar_widget categories">
+                            <div class="widget-title"><h2>Category</h2></div>
+                            <div class="widget-content">
+                                <ul class="sidebar_categories">
+                                  {% for category in categories %}
+                                	<li class="lvl-1" >
+                                    <a href="{% url 'post:post_category' category.name %}" class="site-nav lvl-1">{{ category.name }}</a>
+                                  </li>
+                                  {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Recent Posts</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                   <div class="grid__item">
+                                      {% for post in latest_posts %}
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                            <a class="grid-view-item__link" href="{% url 'post:post_detail' post.pk post.slug %}">
+                                                <img class="grid-view-item__image blur-up lazyload" data-src="{{ post.image.url }}" src="{{ post.image.url }}" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="{% url 'post:post_detail' post.pk post.slug %}">{{ post.title }}</a>
+                                          <div class="grid-view-item__meta"><span class="article__date"> <time datetime="2017-05-02T14:33:00Z">{{ post.date|date:'d-F-Y' }}</time></span></div>
+                                        </div>
+                                      </div>
+                                      {% endfor %}
+                                    </div>
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                        <div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Recent Comments</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                            <a class="grid-view-item__link" href="#">
+                                                <img class="grid-view-item__image blur-up lazyload" data-src="assets/images/recent-commnet-img.jpg" src="assets/images/recent-commnet-img.jpg" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="details">
+                                        	<div class="grid-view-item__meta"><strong>Tim</strong> On <a href="#">Lorem Ipsum</a></div>
+                                        	<a class="grid-view-item__title" href="#">On sait depuis longtemps que travailler avec</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/recent-commnet-img.jpg" src="assets/images/recent-commnet-img.jpg" alt="" /></a> </div>
+                                        <div class="details">
+                                        	<div class="grid-view-item__meta"><strong>Joy</strong> On <a href="#">Lorem Ipsum</a></div>
+                                        	<a class="grid-view-item__title" href="#">On sait depuis longtemps que travailler avec</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/recent-commnet-img.jpg" src="assets/images/recent-commnet-img.jpg" alt="" /></a> </div>
+                                        <div class="details">
+                                        	<div class="grid-view-item__meta"><strong>Jhon</strong> On <a href="#">Lorem Ipsum</a></div>
+                                        	<a class="grid-view-item__title" href="#">On sait depuis longtemps que travailler avec</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/recent-commnet-img.jpg" src="assets/images/recent-commnet-img.jpg" alt="" /></a> </div>
+                                        <div class="details">
+                                        	<div class="grid-view-item__meta"><strong>Tim</strong> On <a href="#">Lorem Ipsum</a></div>
+                                        	<a class="grid-view-item__title" href="#">On sait depuis longtemps que travailler avec</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                        <div class="sidebar_widget tags-clouds">
+                        	<div class="widget-title"><h2>Tags Cloud</h2></div>
+							<div class="widget-content">
+								<ul>
+                                	<li><a href="#">Fashion</a></li>
+                                    <li><a href="#">Clothes</a></li>
+                                    <li><a href="#">Shoes</a></li>
+                                    <li><a href="#">Jeans</a></li>
+                                    <li><a href="#">Furniture</a></li>
+                                    <li><a href="#">Sun Glasses</a></li>
+                                    <li><a href="#">Winter</a></li>
+                                    <li><a href="#">Autoparts</a></li>
+                                </ul>
+                          	</div>
+						</div>
+						<div class="sidebar_widget">
+                        	<div class="widget-title"><h2>Trending Now</h2></div>
+							<div class="widget-content">
+                                <div class="list list-sidebar-products">
+                                  <div class="grid">
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image">
+                                            <a class="grid-view-item__link" href="#">
+                                                <img class="grid-view-item__image blur-up lazyload" data-src="assets/images/product-images/mini-product-img.jpg" src="assets/images/product-images/mini-product-img.jpg" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Cena Skirt</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$173.60</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/product-images/mini-product-img1.jpg" src="assets/images/product-images/mini-product-img1.jpg" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Block Button Up</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$378.00</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/product-images/mini-product-img2.jpg" src="assets/images/product-images/mini-product-img2.jpg" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Balda Button Pant</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$278.60</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="grid__item">
+                                      <div class="mini-list-item">
+                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image blur-up lazyload" data-src="assets/images/product-images/mini-product-img3.jpg" src="assets/images/product-images/mini-product-img3.jpg" alt="" /></a> </div>
+                                        <div class="details"> <a class="grid-view-item__title" href="#">Border Dress in Black/Silver</a>
+                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$228.00</span></span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          	</div>
+						</div>
+                    </div>
+                </div>
+                <!--End Sidebar-->
+            </div>
+        </div>
+        
+    </div>
+    <!--End Body Content-->
+{% endblock content %}
+
+{% block js %}
+   <!-- Including Jquery -->
+    <!-- Including Jquery -->
+     <script src="{%static 'ritzy/assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/jquery.cookie.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/vendor/wow.min.js' %}"></script>
+     <!-- Including Javascript -->
+     <script src="{%static 'ritzy/assets/js/bootstrap.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/plugins.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/popper.min.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/lazysizes.js' %}"></script>
+     <script src="{%static 'ritzy/assets/js/main.js' %}"></script>
+     <!--For Newsletter Popup-->
+     <script>
+		jQuery(document).ready(function(){  
+		  jQuery('.closepopup').on('click', function () {
+			  jQuery('#popup-container').fadeOut();
+			  jQuery('#modalOverly').fadeOut();
+		  });
+		  
+		  var visits = jQuery.cookie('visits') || 0;
+		  visits++;
+		  jQuery.cookie('visits', visits, { expires: 1, path: '/' });
+		  console.debug(jQuery.cookie('visits')); 
+		  if ( jQuery.cookie('visits') > 1 ) {
+			jQuery('#modalOverly').hide();
+			jQuery('#popup-container').hide();
+		  } else {
+			  var pageHeight = jQuery(document).height();
+			  jQuery('<div id="modalOverly"></div>').insertBefore('body');
+			  jQuery('#modalOverly').css("height", pageHeight);
+			  jQuery('#popup-container').show();
+		  }
+		  if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
+		}); 
+		
+		jQuery(document).mouseup(function(e){
+		  var container = jQuery('#popup-container');
+		  if( !container.is(e.target)&& container.has(e.target).length === 0)
+		  {
+			container.fadeOut();
+			jQuery('#modalOverly').fadeIn(200);
+			jQuery('#modalOverly').hide();
+		  }
+		});
+	</script>
+{% endblock js %}

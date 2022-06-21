@@ -17,8 +17,8 @@ class Category(models.Model):
 class Post(models.Model):
     categories = models.ManyToManyField(Category, related_name='posts')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=250, unique_for_date='date', null=True, blank=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=250, unique_for_date='date', null=True, blank=True)
     body = models.TextField()
     image = models.ImageField(upload_to='post images/', null=True)
     date = models.DateTimeField(default=timezone.now)
