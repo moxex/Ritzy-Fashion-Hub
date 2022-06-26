@@ -27,7 +27,7 @@ def random_code(digit=7, letter=3):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField()
     image = models.ImageField()
     is_active = models.BooleanField(default=True)

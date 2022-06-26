@@ -56,18 +56,11 @@
                                                 <div class="cart__qty text-center">
                                                     <div class="qtyField">
 
-                                                        <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
-                                                            <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="1" pattern="[1-21]*">
-                                                        <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
-                                                        
-                
-
+                                                        <form action="{% url "cart:cart_add" product.id %}" method="post">
                                                                 {{ item.update_quantity_form.quantity }}
                                                                 {{ item.update_quantity_form.override }}
-                                                                <!-- <input type="submit" class="cart__qty-input qty" value="Update"> -->
+                                                                <input type="submit" class="btn-theme" value="Update">
                                                                 {% csrf_token %}
-                                                            
-                                            
                                                         </form>
                    
                                                     </div>
@@ -382,8 +375,10 @@
                                   I agree with the terms and conditions
 								</label>
                               </p>
-                              <input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout" disabled="disabled">
-                              <div class="paymnet-img"><img src="{%static 'ritzy/assets/images/payment-img.jpg' %}" alt="Payment"></div>
+                              <a href="{% url 'products:order_create' %}"><input type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout"></a>
+                              <div class="paymnet-img">
+                                  <img src="{%static 'ritzy/assets/images/payment-img.jpg' %}" alt="Payment">
+                                </div>
                               <p><a href="{% url 'products:order_create' %}">Checkout with Multiple Addresses</a></p>
                             </div>
         

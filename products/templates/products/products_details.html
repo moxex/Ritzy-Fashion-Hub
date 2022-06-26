@@ -10,7 +10,7 @@
                 <!--Breadcrumb-->
                 <div class="bredcrumbWrap">
                     <div class="container breadcrumbs">
-                        <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>Product Layout Style1</span>
+                        <a href="index.html" title="Back to the home page">Home</a><span aria-hidden="true">›</span><span>{{ product.name }}</span>
                     </div>
                 </div>
                 <!--End Breadcrumb-->
@@ -87,19 +87,19 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="product-single__meta">
                                         <h1 class="product-single__title">{{ product.name }}</h1>
-                                        <div class="product-nav clearfix">					
+                                        <!-- <div class="product-nav clearfix">					
                                             <a href="#" class="next" title="Next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                                        </div>
+                                        </div> -->
                                         <div class="prInfoRow">
                                             <div class="product-stock"> <span class="instock ">In Stock</span> <span class="outstock hide">Unavailable</span> </div>
-                                            <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span></div>
+                                            <!-- <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span></div> -->
                                             <div class="product-review"><a class="reviewLink" href="#tab2"><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star-o"></i><i class="font-13 fa fa-star-o"></i><span class="spr-badge-caption">6 reviews</span></a></div>
                                         </div>
                                         <p class="product-single__price product-single__price-product-template">
                                             <span class="visually-hidden">Regular price</span>
                                             <s id="ComparePrice-product-template"><span class="money">$600.00</span></s>
                                             <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
-                                                <span id="ProductPrice-product-template"><span class="money">$500.00</span></span>
+                                                <span id="ProductPrice-product-template"><span class="money">₦ {{ product.price }}</span></span>
                                             </span>
                                             <span class="discount-badge"> <span class="devider">|</span>&nbsp;
                                                 <span>You Save</span>
@@ -114,10 +114,10 @@
                                         </div>
                                     <div class="product-single__description rte">
                                         <ul>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
-                                            <li>Sed ut perspiciatis unde omnis iste natus error sit</li>
-                                            <li>Neque porro quisquam est qui dolorem ipsum quia dolor</li>
-                                            <li>Lorem Ipsum is not simply random text.</li>
+                                            <li>Love</li>
+                                            <li>Made with Love</li>
+                                            <!-- <li>Neque porro quisquam est qui dolorem ipsum quia dolor</li> -->
+                                            <!-- <li>Lorem Ipsum is not simply random text.</li> -->
                                         </ul>
                                     </div>
                                     <div id="quantity_message">Hurry! Only  <span class="items">4</span>  left in stock.</div>
@@ -166,7 +166,7 @@
                                                 </button>
                                             </div>
                                             <div class="shopify-payment-button" data-shopify="payment-button">
-                                                <button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded">Buy it now</button>
+                                                <a href="{% url 'products:order_create' %}"><button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded">Buy it now</button></a>
                                             </div>
                                         </div>
                                         <!-- End Product Action -->
@@ -200,7 +200,7 @@
                                         </div>
                                         
                                     <p id="freeShipMsg" class="freeShipMsg" data-price="199"><i class="fa fa-truck" aria-hidden="true"></i> GETTING CLOSER! ONLY <b class="freeShip"><span class="money" data-currency-usd="$199.00" data-currency="USD">$199.00</span></b> AWAY FROM <b>FREE SHIPPING!</b></p>
-                                    <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> ESTIMATED DELIVERY BETWEEN <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p>
+                                    <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> ESTIMATED DELIVERY BETWEEN <b id="fromDate">7 Days </b> to <b id="toDate">14 Days</b>.</p>
                                     <div class="userViewMsg" data-user="20" data-time="11000"><i class="fa fa-users" aria-hidden="true"></i> <strong class="uersView">14</strong> PEOPLE ARE LOOKING FOR THIS PRODUCT</div>
                                 </div>
                         </div>
@@ -242,15 +242,15 @@
                         <div class="tab-container">
                             <div id="tab1" class="tab-content">
                                 <div class="product-description rte">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                    <ul>
+                                    <p>{{ product.description }}</p>
+                                    <!-- <ul>
                                       <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit</li>
                                       <li>Sed ut perspiciatis unde omnis iste natus error sit</li>
                                       <li>Neque porro quisquam est qui dolorem ipsum quia dolor</li>
                                       <li>Lorem Ipsum is not simply random text.</li>
                                       <li>Free theme updates</li>
-                                    </ul>
-                                    <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</h3>
+                                    </ul> -->
+                                    <!-- <h3>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</h3>
                                     <p>You can change the position of any sections such as slider, banner, products, collection and so on by just dragging and dropping.&nbsp;</p>
                                     <h3>Lorem Ipsum is not simply random text.</h3>
 <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
@@ -264,9 +264,11 @@
                                     <h3>Lorem Ipsum is not simply random text.</h3>
 <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p>
                                     <h3>Proin ut lacus eget elit molestie posuere.</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p> -->
                                 </div>
                             </div>
+
+
                             
                             <div id="tab2" class="tab-content">
                                 <div id="shopify-product-reviews">
@@ -357,7 +359,7 @@
                                         </div>
                                         </div>
                                     </div>
-                                </div>
+                            </div>
                             
                             <div id="tab3" class="tab-content">
                                 <h3>WOMEN'S BODY SIZING CHART</h3>
@@ -457,7 +459,7 @@
                                 <div class="text-center">
                                     <img src="{%static 'ritzy/assets/images/size.jpg' %}" alt="" />
                                 </div>
-                          </div>
+                            </div>
                             
                             <div id="tab4" class="tab-content">
                                 <h4>Returns Policy</h4>
@@ -466,6 +468,7 @@
                                 <h4>Shipping</h4>
                                 <p>Pellentesque ultrices ut sem sit amet lacinia. Sed nisi dui, ultrices ut turpis pulvinar. Sed fringilla ex eget lorem consectetur, consectetur blandit lacus varius. Duis vel scelerisque elit, et vestibulum metus.  Integer sit amet tincidunt tortor. Ut lacinia ullamcorper massa, a fermentum arcu vehicula ut. Ut efficitur faucibus dui Nullam tristique dolor eget turpis consequat varius. Quisque a interdum augue. Nam ut nibh mauris.</p>
                             </div>
+
                         </div>
                     </div>
                     <!--End Product Tabs-->

@@ -130,42 +130,21 @@
 							<div class="widget-content">
                                 <div class="list list-sidebar-products">
                                   <div class="grid">
-                                    <div class="grid__item">
-                                      <div class="mini-list-item">
-                                        <div class="mini-view_image">
-                                            <a class="grid-view-item__link" href="#">
-                                                <img class="grid-view-item__image" src="{%static 'ritzy/assets/images/product-images/mini-product-img.jpg' %}" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="details"> <a class="grid-view-item__title" href="#">Cena Skirt</a>
-                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$173.60</span></span></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="grid__item">
-                                      <div class="mini-list-item">
-                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="assets/images/product-images/mini-product-img1.jpg" alt="" /></a> </div>
-                                        <div class="details"> <a class="grid-view-item__title" href="#">Block Button Up</a>
-                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$378.00</span></span></div>
+                                    {% for product in related_products %}
+                                      <div class="grid__item">
+                                        <div class="mini-list-item">
+                                          <div class="mini-view_image">
+                                              <a class="grid-view-item__link" href="#">
+                                                  <img class="grid-view-item__image" src="{% if product.image %} {{ product.image.url }} {% endif %}" alt="" />
+                                              </a>
+                                          </div>
+                                          <div class="details"> <a class="grid-view-item__title" href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                            <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">₦ {{ product.price }}</span></span></div>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div class="grid__item">
-                                      <div class="mini-list-item">
-                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="assets/images/product-images/mini-product-img2.jpg" alt="" /></a> </div>
-                                        <div class="details"> <a class="grid-view-item__title" href="#">Balda Button Pant</a>
-                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$278.60</span></span></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div class="grid__item">
-                                      <div class="mini-list-item">
-                                        <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="assets/images/product-images/mini-product-img3.jpg" alt="" /></a> </div>
-                                        <div class="details"> <a class="grid-view-item__title" href="#">Border Dress in Black/Silver</a>
-                                          <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$228.00</span></span></div>
-                                        </div>
-                                      </div>
-                                    </div>
+                                    {% endfor %}
+
                                   </div>
                                 </div>
                           	</div>
@@ -278,10 +257,10 @@
                                         <!-- start product image -->
                                         <a href="{{ product.get_absolute_url }}">
                                             <!-- image -->
-                                            <img class="primary blur-up lazyload" data-src="{% if product.image %} {{ product.image.url }} {% endif %}" src="{% if product.image %} {{ product.image.url }} {% endif %}" alt="image" title="product">
+                                            <img class="primary blur-up lazyload" data-src="{% if product.image %} {{ product.image.url }} {% endif %}" src="{% if product.image %} {{ product.image.url }} {% endif %}" alt="image" title="{{ product.name }}">
                                             <!-- End image -->
                                             <!-- Hover image -->
-                                            <img class="hover blur-up lazyload" data-src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" alt="image" title="product">
+                                            <img class="hover blur-up lazyload" data-src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" src="{% if product.image %} {{ product.image_hover.url }} {% endif %}" alt="image" title="{{ product.name }}">
                                             <!-- End hover image -->
                                             <!-- product label -->
                                             <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span class="lbl pr-label1">new</span></div>
