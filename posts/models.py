@@ -28,7 +28,7 @@ class Post(models.Model):
         return f'{self.title} by {self.author.username} ({self.categories.name})'
 
     def get_absolute_url(self):
-        return reverse('forum:post_detail', args=[str(self.id)])
+        return reverse('posts:post_detail', args=[str(self.id)])
 
     def get_days(self):
         current = timezone.now()
@@ -57,7 +57,7 @@ class Comment(models.Model):
         return self.comment
 
     def get_absolute_url(self):
-        return reverse('forum:post_list')
+        return reverse('posts:post_list')
 
 class About(models.Model):
     title = models.CharField(max_length=250, null=True, blank=True)

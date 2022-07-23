@@ -328,18 +328,14 @@
         	<div class="container-fluid">
 				<div class="collection-grid">
                     {% for category in categories %}
-                        {% if category.slug == category.slug %}
-                        
                         <div class="collection-grid-item">
-                            <a href="{{ category.get_absolute_url }}" class="collection-grid-item__link">
+                            <a href="{% url 'products:product_category' category.name %}" class="collection-grid-item__link">
                                 <img data-src="{{ category.image.url }}" src="{{ category.image.url }}" alt="Product Category" class="blur-up lazyload"/>
                                 <div class="collection-grid-item__title-wrapper">
                                     <h3 class="collection-grid-item__title btn btn--secondary no-border">{{ category.name }}</h3>
                                 </div>
                             </a>
                         </div>
-                        {% endif %}
-    
                     {% endfor %}
 
                     </div>

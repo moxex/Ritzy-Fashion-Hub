@@ -31,7 +31,14 @@
                                 <li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{ post.date|date:'d-F-Y' }}</time></li>
                                 <li>
                                     <ul class="inline-list">   
-                                        <li><i class="icon anm anm-comments-l"></i> <a href="#"> 0 comments</a></li>
+                                        <li><i class="icon anm anm-comments-l"></i> 
+                                          {% if post.number_of_comments %}
+                                          {% with post.number_of_comments as total_comments %}
+                                              <a href="{% url 'post:post_detail' post.pk post.slug %}">{{ total_comments }} Comment{{ total_comments|pluralize }}</a>
+                                          {% endwith %}
+                                          {% else %}
+                                              0 Comment
+                                          {% endif %}
                                     </ul>
                                 </li>
                             </ul>
@@ -67,25 +74,55 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mini-title">
+                            <h3>Comments</h3>
+                        </div>
+                        <!-- Blog Comments -->
+                        {% if comments %}
+                            {% with comments.count as total_comments %}
+                            <strong>{{ total_comments }} comment{{ total_comments|pluralize }}</strong>
+                            {% endwith %}
+                            <hr>
+                            <div class="row blog-comments margin-bottom-30">
+                                {% for comment in comments %}
+                                    <div class="col-sm-10">
+                                        <div class="comment">
+                                            <h5>
+                                                {{ comment.name }}
+                                                <span>{{ comment.date }}</a></span>
+                                            </h5>
+                                            <p>{{ comment.comment|safe }}</p>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        <strong class="text-secondary">No comments yet...</strong>
+                        {% endif %}
+                        <!-- End Blog Comments -->
+                        
                         <div class="formFeilds contact-form form-vertical">
                           <form method="post" action="#" id="comment_form" accept-charset="UTF-8" class="comment-form">
-                              <h2>Leave a comment</h2>
+                            {% csrf_token %}
+                              <h2>Please note that your details is safe with us and cannot be shared with anyone else...</h2>
                               <div class="row">
                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                    <input type="text" id="ContactFormName" name="contact[name]" placeholder="Name" value="" required="">
+                                    <input type="text" id="ContactFormName" name="full_name" placeholder="Enter Your Full Name" value="" required="">
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group">
-                                    <input type="email" id="ContactFormEmail" name="contact[email]" placeholder="Email" value="" required="">                        	
+                                    <input type="email" id="ContactFormEmail" name="email" placeholder="Enter Your Email" value="" required="">                        	
                                     </div>
                                 </div>
                               </div>
                               <div class="row">
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                    <textarea required="" rows="10" id="ContactFormMessage" name="contact[body]" placeholder="Your Message"></textarea>
+                                    <textarea required="" rows="10" id="ContactFormMessage" name="body" placeholder="Write comment here ..."></textarea>
                                     </div>
                                 </div>  
                               </div>
@@ -195,52 +232,3 @@
     </div>
     <!--End Body Content-->
 {% endblock content %}
-
-{% block js %}
-   <!-- Including Jquery -->
-    <!-- Including Jquery -->
-     <script src="{%static 'ritzy/assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/vendor/jquery.cookie.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/vendor/wow.min.js' %}"></script>
-     <!-- Including Javascript -->
-     <script src="{%static 'ritzy/assets/js/bootstrap.min.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/plugins.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/popper.min.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/lazysizes.js' %}"></script>
-     <script src="{%static 'ritzy/assets/js/main.js' %}"></script>
-     <!--For Newsletter Popup-->
-     <script>
-		jQuery(document).ready(function(){  
-		  jQuery('.closepopup').on('click', function () {
-			  jQuery('#popup-container').fadeOut();
-			  jQuery('#modalOverly').fadeOut();
-		  });
-		  
-		  var visits = jQuery.cookie('visits') || 0;
-		  visits++;
-		  jQuery.cookie('visits', visits, { expires: 1, path: '/' });
-		  console.debug(jQuery.cookie('visits')); 
-		  if ( jQuery.cookie('visits') > 1 ) {
-			jQuery('#modalOverly').hide();
-			jQuery('#popup-container').hide();
-		  } else {
-			  var pageHeight = jQuery(document).height();
-			  jQuery('<div id="modalOverly"></div>').insertBefore('body');
-			  jQuery('#modalOverly').css("height", pageHeight);
-			  jQuery('#popup-container').show();
-		  }
-		  if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
-		}); 
-		
-		jQuery(document).mouseup(function(e){
-		  var container = jQuery('#popup-container');
-		  if( !container.is(e.target)&& container.has(e.target).length === 0)
-		  {
-			container.fadeOut();
-			jQuery('#modalOverly').fadeIn(200);
-			jQuery('#modalOverly').hide();
-		  }
-		});
-	</script>
-{% endblock js %}

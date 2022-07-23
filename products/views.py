@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from .models import Category, Product, Order, OrderItem
 from cart.forms import CartAddProductForm
@@ -7,6 +7,7 @@ from cart.cart import Cart
 from .render import Render
 from django.http import JsonResponse
 from django.utils import timezone
+
 
 # Create your views here.
 def product_list(request, category_slug=None):
@@ -51,12 +52,14 @@ def product_detail(request, id, slug):
 
 def order_create(request):
     cart = Cart(request)
+
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
-        if form.is_valid() and form.cleaned_data:
+        
+        if form.is_valid():
             order = form.save()
             for item in cart:
-                OrderItem.objects.create(order=order, product=item['product'], 
+                OrderItem.objects.create(order=order, product=item['product'],
                 price=item['price'], quantity=item['quantity'])
             context = {
                 'order': order,
@@ -64,23 +67,10 @@ def order_create(request):
                 'email': form.cleaned_data['email'],
                 'phone': form.cleaned_data['phone_number']
             }
-            return render(request, 'products/pay_with_paystack.html', context)
+            return render(request, 'products/pay_with_paystack.html', context )
     else:
         form = OrderCreateForm()
-    return render(request, 'products/checkout.html', {'cart': cart, 'form': form})
-
-
-def product_category(request, category, slug):
-    product = Product.objects.filter(
-        categories__name__contains=category
-    ).order_by(
-        '-date'
-    )
-    context = {
-        "category": category,
-        "product": product,
-    }
-    return render(request, "products/category_product_list.html", context)
+        return render(request, 'products/checkout.html', {'cart': cart, 'form': form})
 
 
 def ajax_payment(request):
@@ -100,7 +90,7 @@ def ajax_payment(request):
             return JsonResponse(response)
 
 
-# view for pdf rendering
+
 class Pdf(View):
 
     def get(self, request, id):
@@ -114,6 +104,18 @@ class Pdf(View):
             'today': today,
             'cart': cart,
             'order_item': order_item,
-            # 'request': request
         }
         return Render.render('products/pdf.html', params)
+
+
+def product_category(request, category):
+    product = Product.objects.filter(
+        categories__name__contains=category
+    ).order_by(
+        '-price'
+    )
+    context = {
+        "category": category,
+        "product": product,
+    }
+    return render(request, "products/category_product_list.html", context)
